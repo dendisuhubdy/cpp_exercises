@@ -55,6 +55,17 @@ auto initialization() -> int {
     std::cout << vold << "\n";
     int test = 0; // copy assignment initialization
     std::cout << test << "\n";
+    return 0;
+}
+
+void f(int){
+    std::cout << "int foo called\n";
+}
+void f(bool){
+    std::cout << "bool foo called\n";
+}
+void f(void*){
+    std::cout << "void star foo called\n";
 }
 
 auto main(int argc, char** argv) -> int {
@@ -62,5 +73,8 @@ auto main(int argc, char** argv) -> int {
     if (height == nullptr){
         std::cout << "Memory full \n";
     }
+    f(0);
+    //f(NULL); // error: call of overloaded ‘f(NULL)’ is ambiguous
+    f(nullptr);
     return 0;
 }
