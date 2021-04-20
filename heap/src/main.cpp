@@ -38,14 +38,29 @@ void print(const std::vector<int>& v) {
     }
 }
 
-
-auto main(int argc, char** argv) -> int {
+auto initialization() -> int {
     // this is called parentheses initialization
     std::vector<int> parentheses_initialization(2, 10);
     print(parentheses_initialization);
+    std::vector<int> uniform_initialization{2, 10};
+    print(uniform_initialization);
     // this is called uniform initialization
     // { } most vexing parser safe
     // { } prevents narrowing conversion
-    std::vector<int> uniform_initialization{2, 10};
-    print(uniform_initialization);
+    // what it means is that if you do
+    int getName(3.4); // this is ok
+    // int getName{3.4}; // this is not ok
+    // { } also defaults the vaues, call the constructor for user defined types 
+    int vold;
+    std::cout << vold << "\n";
+    int test = 0; // copy assignment initialization
+    std::cout << test << "\n";
+}
+
+auto main(int argc, char** argv) -> int {
+    int* height = new int;
+    if (height == nullptr){
+        std::cout << "Memory full \n";
+    }
+    return 0;
 }
