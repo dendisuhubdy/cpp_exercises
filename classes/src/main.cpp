@@ -28,7 +28,12 @@ struct Person {
         age_ = copy.age_ / 5;
         return *this;
     }
-    // - Move Assignment
+    // - Move constructor // Introduced in C++11 with move semantics
+    Person(Person&& movedPerson){
+        name_ = std::move(movedPerson.name_);
+        age_ = movedPerson.age_;
+    }
+    // - Move Assignment // Introduced in C++11 with move semantics
     // - Destructor
     ~Person() {
     }
@@ -40,8 +45,14 @@ class Animal {
 };
 
 auto main(int argc, char** argv) -> int {
-    Person p("bob"); // alocating the struct on 
-    Person p2(p); // Calls the copy constructor
-    p2 = p; // Calls the copy assignment
-    std::cout << p2.age_ << "\n";
+    //Person p("bob"); // alocating the struct on 
+    //Person p2(p); // Calls the copy constructor
+    //p2 = p; // Calls the copy assignment
+    //std::cout << p2.age_ << "\n";
+    std::string name = "this is my name";
+    std::cout << &name << "\n";
+    std::string movedName = std::move(name);
+    std::cout << &movedName << "\n";
+    std::cout << movedName << "\n";
+    // moved from state it's still in a valid but unspecified state
 }
