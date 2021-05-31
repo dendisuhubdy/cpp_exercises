@@ -8,6 +8,8 @@
 using Emails = std::string;
 using Price = std::uint64_t;
 
+// ADL argument Deduction lookup
+
 auto foo() -> void {
     // R, G, B
     std::array<int, 3> staticArr { 1, 0, 1 };
