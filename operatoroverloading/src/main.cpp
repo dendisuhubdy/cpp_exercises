@@ -3,12 +3,51 @@
 #include <array>
 #include <string>
 #include <set>
+#include <vector>
 
-// Type aliasing
-using Emails = std::string;
-using Price = std::uint64_t;
+// Create a matrix class
+// - Overload the operator *
+// - Overload the operator +
+// - Overload the operator -
 
-// ADL argument Deduction lookup
+class Matrix {
+    public:
+        std::vector<std::vector<float>> matrixElements_;
+
+    //public:
+        // hidden friend
+
+    // Constructor
+    Matrix(std::vector<std::vector<float>> initializedMatrixElements): matrixElements_{initializedMatrixElements}{}
+    friend Matrix& operator+(Matrix& lhs, Matrix rhs);
+    friend Matrix& operator-(Matrix& lhs, Matrix& rhs);
+    friend Matrix& operator*(Matrix& lhs, Matrix& rhs);
+};
+
+Matrix& operator+(Matrix& lhs, Matrix rhs){
+    // matrixElements_ is a vector of a vector
+    // here we need to access the elements 
+    // so better to use the C-styled loops
+    for (int x = 0; x < rhs.matrixElements_.size(); ++x) {
+        for (int y = 0; y < rhs.matrixElements_[x].size(); ++y) {
+            lhs.matrixElements_[x][y] += rhs.matrixElements_[x][y];
+        }
+    }
+    return lhs;
+}
+
+Matrix& operator-(Matrix& lhs, Matrix& rhs){
+    for (int x = 0; x < rhs.matrixElements_.size(); ++x) {
+        for (int y = 0; y < rhs.matrixElements_[x].size(); ++y) {
+            lhs.matrixElements_[x][y] -= rhs.matrixElements_[x][y];
+        }
+    } 
+    return lhs;
+}
+
+Matrix& operator*(Matrix& lhs, Matrix& rhs){
+
+}
 
 class ComplexNumber {
     private:
@@ -41,7 +80,25 @@ auto goo() -> void {
     // ComplexNumber r = operator+(c1, c2);
 }
 
+auto foo() -> void {
+    std::vector<std::vector<float>> m1Elements{{1, 2}, {1, 2}};
+    std::vector<std::vector<float>> m2Elements{{1, 2}, {1, 2}};
+
+    Matrix m1(m1Elements);
+    Matrix m2(m2Elements);
+
+    auto m3 = m1 + m2;
+
+    for (auto& x: m3.matrixElements_){
+        for (auto& y: x) {
+            std::cout << y << "\n";
+        }
+    }
+
+}
+
 
 auto main() -> int {
-    goo();
+    foo();
+    //goo();
 }
