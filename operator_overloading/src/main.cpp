@@ -45,8 +45,35 @@ Matrix& operator-(Matrix& lhs, Matrix& rhs){
     return lhs;
 }
 
+// [1 2 3 4] * [11] = [30 30]
+// [1 2 3 4]   [22]   [30 30]
+//             [33]
+//             [44]
+//
+// [1 2] * [1 2] = [3 5]
+// [1 2]   [1 2]   [3 5]
+               
 Matrix& operator*(Matrix& lhs, Matrix& rhs){
+    std::vector<std::vector<float>> resultElements;
+    Matrix result(resultElements);
 
+    // lhs.matrixElements_.size = rows
+    if (lhs.matrixElements_.size() != rhs.matrixElements_[0].size()) {
+        //std::cout << "The size of the two matrices are different. Aborting.." << "\n";
+        throw std::runtime_error("The size of the two matrices are different. Aborting..");
+    }
+
+    int i = 0;
+    for (int x = 0; x < rhs.matrixElements_.size(); ++x) {
+        int sum = 0;
+        for (int y = 0; y < rhs.matrixElements_[x].size(); ++y) {
+            std::cout << "Multiplying " << lhs.matrixElements_[x][y] << " x  " << rhs.matrixElements_[y][x] << "\n";
+            sum += lhs.matrixElements_[x][y] * rhs.matrixElements_[y][x];
+        }
+        result.matrixElements_[x][i] = sum;
+        ++i;
+    }
+    return result;
 }
 
 class ComplexNumber {
@@ -88,6 +115,16 @@ auto foo() -> void {
     Matrix m2(m2Elements);
 
     auto m3 = m1 + m2;
+
+    for (auto& x: m3.matrixElements_){
+        for (auto& y: x) {
+            std::cout << y << "\n";
+        }
+    }
+
+    auto m4 = m1 * m2;
+
+    std::cout << "Matrix multiplication" << "\n";
 
     for (auto& x: m3.matrixElements_){
         for (auto& y: x) {

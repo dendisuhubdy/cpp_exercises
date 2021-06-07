@@ -1,5 +1,5 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0.0..3.20.1)
-PROJECT(operatoroverloading)
+PROJECT(operator_overloading)
 
 SET(CMAKE_BUILD_TYPE Release)
 
@@ -8,6 +8,6 @@ SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 SET(SOURCES_CPP "src/main.cpp")
 
-ADD_EXECUTABLE(operatoroverloading ${SOURCES_CPP})
+ADD_EXECUTABLE(operator_overloading ${SOURCES_CPP})
 
-INSTALL(TARGETS operatoroverloading DESTINATION /usr/local/bin)
+INSTALL(TARGETS operator_overloading DESTINATION /usr/local/bin)
